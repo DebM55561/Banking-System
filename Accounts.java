@@ -6,6 +6,7 @@ class Accounts {
 
     private Connection connection;
     private Scanner scanner;
+     AccManager acm = new AccManager(connection,scanner);
 
     public Accounts(Connection connection, Scanner scanner){
         this.connection=connection;
@@ -51,7 +52,7 @@ class Accounts {
                 preparedStatement.setString(1,fullName);
                 preparedStatement.setString(2,email);
                 preparedStatement.setInt(3,balance);
-                preparedStatement.setString(4,secpin);
+                preparedStatement.setString(4,acm.dohasing(secpin));
                 preparedStatement.setLong(5,GenAccNO());
                 int rowsAffected = preparedStatement.executeUpdate();
                 if(rowsAffected>0)
