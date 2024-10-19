@@ -85,7 +85,7 @@ public class User {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(loginQuery);
             preparedStatement.setString(1,Email);
-            preparedStatement.setString(2,Password);
+            preparedStatement.setString(2,acm.dohashing(Password));
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next())
             {
