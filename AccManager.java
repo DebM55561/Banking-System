@@ -10,6 +10,26 @@ public class AccManager {
         this.scanner = scanner;
     }
 
+     public String dohasing(String password)
+    {
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+            messageDigest.update(password.getBytes());
+
+            byte[] passbyte = messageDigest.digest();
+            StringBuilder sb = new StringBuilder();
+
+            for (byte b : passbyte)
+            {
+                sb.append(String.format("%02x",b ));
+            }
+            return sb.toString();   
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 //    public boolean AccExist(String email) {
 //        String query = "select * from accounts where email = ?";
 //        try {
