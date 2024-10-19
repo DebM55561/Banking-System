@@ -7,12 +7,14 @@ import java.util.Scanner;
 public class User {
     private Connection connection;
     private Scanner scanner;
+    AccManager acm = new AccManager(connection,scanner);
 
     public User(Connection connection, Scanner scanner)
     {
         this.connection=connection;
         this.scanner= scanner;
     }
+    
 
     public boolean userExist(String email)
     {
@@ -55,7 +57,7 @@ public class User {
         PreparedStatement preparedStatement= connection.prepareStatement(RegQuery);
         preparedStatement.setString(1,FullName);
         preparedStatement.setString(2,Email);
-        preparedStatement.setString(3,Password);
+        preparedStatement.setString(3,acm.dohashing(Password));
 //        ResultSet resultSet = preparedStatement.executeQuery(RegQuery);
         int affectedrows = preparedStatement.executeUpdate();
         if(affectedrows>0){
